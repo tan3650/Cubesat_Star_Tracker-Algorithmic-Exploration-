@@ -109,9 +109,9 @@ keys = hash_key(feat, tol)<br>
 triangle_db(key) = {...}<br>
 
 • Generates all triplets of catalog stars<br>
-• Computes angular features for each triangle<br>
-• Converts features to hash keys<br>
-• Stores triangle indices in hash map<br>
+• Computes triangle features in parallel using parfor<br>
+• Stores keys and triangle indices in temporary cell arrays<br>
+• Builds hash map sequentially after parallel computation<br>
 
 ### triangle_angles.m
 d12 = acosd(dot(v(1,:), v(2,:)))<br>

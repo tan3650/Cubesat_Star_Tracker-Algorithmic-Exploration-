@@ -32,7 +32,113 @@ Overall, this is a learning-oriented prototype intended to explore the core conc
 - Finding good input images (with minimal distortion) is a challenge in itself. Try to find someone experienced with real star trackers for better insight into                parameters and constraints. <br>
 - Initially planned to implement a geometric voting algorithm (GVA), but ran into multiple issues during implementation. format it so there is no text below bullet points when i put it in readme.
   
+### main.m
+• Loads and converts image to double<br>
+• Creates subsampled grid for candidate detection<br>
+• Applies threshold to identify bright pixels<br>
+• Calls region growing to extract star regions<br>
+• Calls centroiding to compute star centers<br>
+• Converts pixel positions to unit vectors<br>
+• Builds triangle database from catalog vectors<br>
+• Calls catalog_matching to load and convert catalog stars<br>
+• Performs pattern matching between detected and catalog stars<br>
+• Computes final rotation using matched stars<br>
 
+### region_growing.m
+• Initializes stack with seed pixel<br>
+• Checks pixel intensity against threshold<br>
+• Adds valid pixels to region list<br>
+• Sets processed pixels to zero<br>
+• Pushes neighboring pixels onto stack<br>
+• Returns region only if size is within limits<br>
 
+### centroiding.m
+• Finds brightest pixel in region<br>
+• Extracts local window around brightest pixel<br>
+• Computes weighted centroid using intensities<br>
+• Converts centroid from distorted to undistorted coordinates<br>
+
+### distortion_correction.m
+• Computes squared radius from center<br>
+• Applies radial distortion terms<br>
+• Applies tangential distortion terms<br>
+• Outputs corrected pixel coordinates<br>
+
+### pixels_to_unit_vector.m
+• Shifts pixel coordinates relative to image center<br>
+• Converts pixels to normalized image coordinates<br>
+• Forms direction vector in camera frame<br>
+• Normalizes vector to unit length<br>
+
+### catalog_matching.m
+• Reads catalog table from file<br>
+• Converts RA and Dec strings to degrees<br>
+• Converts degrees to radians<br>
+• Computes Cartesian unit vectors<br>
+• Returns vectors and star names<br>
+
+### build_triangle_db.m
+• Generates all triplets of catalog stars<br>
+• Computes angular features for each triangle<br>
+• Converts features to hash keys<br>
+• Stores triangle indices in hash map<br>
+
+### triangle_angles.m
+• Computes angles between each pair of vectors<br>
+• Uses dot product for angle calculation<br>
+• Converts angles to degrees<br>
+• Sorts angles to ensure consistent ordering<br>
+
+### triangle_features.m
+• Computes side lengths of triangle<br>
+• Computes semi-perimeter and area<br>
+• Normalizes lengths using area<br>
+• Computes triangle angles<br>
+• Combines length and angle features<br>
+
+### hash_key.m
+• Quantizes feature values using tolerance<br>
+• Generates neighboring keys for robustness<br>
+• Converts keys to string format<br>
+• Returns list of candidate hash keys<br>
+
+### hash_triangle_matching.m
+• Matches detected triangle hash keys with catalog hash keys<br>
+• Retrieves candidate catalog triangles from hash database<br>
+• Compares detected and catalog triangle correspondences<br>
+• Outputs possible triangle matches for further validation<br>
+
+### hash_triangle_debug.m
+• Generates triangles from detected stars<br>
+• Computes angular distances for each triangle<br>
+• Rounds values to create hash representation<br>
+• Outputs numeric hash values for debugging<br>
+
+### pattern_matching.m
+• Generates triangles from detected vectors<br>
+• Computes triangle features<br>
+• Looks up matching catalog triangles using hash<br>
+• Verifies matches using rotation estimation<br>
+• Applies consistency check using additional stars<br>
+
+### verify_match.m
+• Builds correlation matrix from matched vectors<br>
+• Uses SVD to compute optimal rotation<br>
+• Ensures proper rotation matrix<br>
+• Applies rotation to detected vectors<br>
+• Computes matching error<br>
+
+### attitude_determination.m
+• Computes rotation for each match candidate<br>
+• Applies rotation to all detected vectors<br>
+• Computes distance to catalog vectors<br>
+• Counts number of consistent matches<br>
+• Selects best rotation based on score and error<br>
+
+### image_plane.m
+• Converts pixel coordinates into image plane coordinates<br>
+• Shifts coordinates relative to principal point<br>
+• Scales using camera parameters<br>
+• Prepares coordinates for geometric transformations<br>
 
 

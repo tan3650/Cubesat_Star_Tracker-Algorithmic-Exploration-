@@ -23,6 +23,7 @@ Overall, this is a learning-oriented prototype intended to explore the core conc
 
 
 #### Random Notes
+- For catalogues: https://simbad.u-strasbg.fr/simbad/sim-basicIdent=m33&submit=SIMBAD+search
 - I'll be dumping everything I came across or tried to use in the extra folder - research papers, reduced catalogs, files from Nova, etc.<br>
 - Many parts still need improvement, especially where accuracy is low or latency is high (and there are definitely better modern methods I wasn’t able to implement). 
 - Use the Tycho-2 catalog for fainter stars' magnitudes if needed.<br>
